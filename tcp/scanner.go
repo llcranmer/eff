@@ -60,19 +60,20 @@ func PortScan(portRange int, address string) []int {
 // SelPortScan lets a user pass in a slice of ports to  be scanned rather than iterating from start to finish of a range.
 func SelPortScan(ports []int, address string) []int {
 	var openPorts []int
-	// want to iterate over the int slice that is passed in
-	// and for each value try to create if a tcp connection
-	// if the connection is successful then that means there is an open
-	// port and it should be appended to the slice of open ports
+
 	for _, p := range ports {
+
 		addr := fmt.Sprintf("%s:%d", address, p)
 		conn, err := net.Dial("tcp", addr)
 		if err != nil {
-			fmt.Println("error := ", err)
+			continue
 		}
 		openPorts = append(openPorts, p)
 		conn.Close()
-
 	}
+	for _, port := range openPorts {
+		fmt.Printf("%d open\n", port)
+	}
+
 	return openPorts
 }
