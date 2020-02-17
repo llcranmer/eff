@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"sort"
+	"strings"
 )
 
 // Try to establish a TCP connection on the port
@@ -58,12 +59,13 @@ func PortScan(portRange int, address string) []int {
 }
 
 // SelPortScan lets a user pass in a slice of ports to  be scanned rather than iterating from start to finish of a range.
-func SelPortScan(ports []int, address string) []int {
-	var openPorts []int
+func SelPortScan(s string, address string) []string {
+	ports := strings.Split(s, ",")
 
+	var openPorts []string
 	for _, p := range ports {
 
-		addr := fmt.Sprintf("%s:%d", address, p)
+		addr := fmt.Sprintf("%s:%s", address, p)
 		conn, err := net.Dial("tcp", addr)
 		if err != nil {
 			continue
@@ -72,7 +74,7 @@ func SelPortScan(ports []int, address string) []int {
 		conn.Close()
 	}
 	for _, port := range openPorts {
-		fmt.Printf("%d open\n", port)
+		fmt.Printf("%s open\n", port)
 	}
 
 	return openPorts

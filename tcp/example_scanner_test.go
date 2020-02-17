@@ -16,8 +16,8 @@ func Example_portscan() {
 }
 
 func Example_selportscan() {
-	ports := []int{80, 22, 3001}
-	tcp.SelPortScan(ports, "scanme.nmap.org")
+	p := "80,22"
+	tcp.SelPortScan(p, "scanme.nmap.org")
 
 	// Output:
 	// 80 open

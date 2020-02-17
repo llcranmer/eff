@@ -13,10 +13,10 @@ func TestPortScan(t *testing.T) {
 }
 
 func TestSelPortScan(t *testing.T) {
-	ports := []int{8080, 3000, 3001}
+	s := "8080,3001,3000"
 	address := "127.0.0.1"
-	fmt.Println(ports)
-	have := SelPortScan(ports, address)
+	fmt.Println(s)
+	have := SelPortScan(s, address)
 	if have == nil {
 		fmt.Println("error")
 	}

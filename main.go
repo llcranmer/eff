@@ -8,15 +8,11 @@ import (
 )
 
 func main() {
-	// tcp.PortScan(1024, "127.0.0.1")
-	// fmt.Println("done with  ports scan")
-	ports := []int{80, 20, 3001}
-	tcp.SelPortScan(ports, "127.0.0.1")
-	fmt.Println("done with sel port scan")
 
-	tcpPtr := flag.String("tcp", "foo", "tcp protocol to scan")
+	tcpPtr := flag.String("tcp", "tcp", "tcp protocol with a range of ports to scan or a selection of ports to scan")
 	addrPtr := flag.String("addr", "127.0.0.1", "the address to scan")
-	numbPtr := flag.Int("numb", 42, "an int")
+	numbPtr := flag.Int("portRange", 1024, "Scan from 0 up to the number inputted.")
+	portsPtr := flag.String("ports", "8080,8000", "selection of ports to scan in csv format")
 	// boolPtr := flag.Bool("fork", false, "a bool")
 
 	var svar string
@@ -24,9 +20,15 @@ func main() {
 
 	flag.Parse()
 
-	if *tcpPtr == "scan" && *addrPtr != "127.0.0.1" {
+	if *tcpPtr == "scan" {
 		fmt.Println("Scanning ports..")
 		tcp.PortScan(*numbPtr, *addrPtr)
+		fmt.Println("done.")
+	}
+
+	if *tcpPtr == "sscan" {
+		fmt.Println("Scanning selected ports..")
+		tcp.SelPortScan(*portsPtr, *addrPtr)
 		fmt.Println("done.")
 	}
 
