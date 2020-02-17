@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 
+	proxy "github.com/llcranmer/eff/tcp/proxy"
 	tcp "github.com/llcranmer/eff/tcp/scanner"
 )
 
@@ -29,6 +30,12 @@ func main() {
 	if *tcpPtr == "sscan" {
 		fmt.Println("Scanning selected ports..")
 		tcp.SelPortScan(*portsPtr, *addrPtr)
+		fmt.Println("done.")
+	}
+
+	if *tcpPtr == "proxy" {
+		fmt.Println("Starting a proxy server")
+		proxy.StartListener(*addrPtr)
 		fmt.Println("done.")
 	}
 
