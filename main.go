@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/llcranmer/eff/tcp"
+	tcp "github.com/llcranmer/eff/tcp/scanner"
 )
 
 func main() {
