@@ -30,9 +30,9 @@ func ProxyServer(src net.Conn, addrAndPort string) {
 
 }
 
-// StartListener creates a listener on the specified port in the form of
+// StartProxyListener creates a listener on the specified port in the form of
 // :port, e.g. :3001
-func StartListener(addrAndPort string) {
+func StartProxyListener(addrAndPort string) {
 	port := strings.Split(addrAndPort, ":")
 	listener, err := net.Listen("tcp", ":"+port[1])
 	if err != nil {

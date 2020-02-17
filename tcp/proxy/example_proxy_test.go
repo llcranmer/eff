@@ -7,7 +7,7 @@ import (
 func TestProxyServer(t *testing.T) {
 	// setting up a listener
 	addrAndPort := "localhost:3001"
-	StartListener(addrAndPort)
+	StartProxyListener(addrAndPort)
 
 	// Output:
 	// Listening on 127.0.0.1:3001

