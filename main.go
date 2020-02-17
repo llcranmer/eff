@@ -14,7 +14,8 @@ func main() {
 	tcp.SelPortScan(ports, "127.0.0.1")
 	fmt.Println("done with sel port scan")
 
-	wordPtr := flag.String("tcp", "foo", "a string")
+	tcpPtr := flag.String("tcp", "foo", "tcp protocol to scan")
+	addrPtr := flag.String("addr", "127.0.0.1", "the address to scan")
 	numbPtr := flag.Int("numb", 42, "an int")
 	// boolPtr := flag.Bool("fork", false, "a bool")
 
@@ -23,15 +24,10 @@ func main() {
 
 	flag.Parse()
 
-	// fmt.Println("tcp:", *wordPtr)
-	// fmt.Println("numb:", *numbPtr)
-	// fmt.Println("fork:", *boolPtr)
-	// fmt.Println("svar:", svar)
-	// fmt.Println("tail:", flag.Args())
-
-	if *wordPtr == "scan" {
+	if *tcpPtr == "scan" && *addrPtr != "127.0.0.1" {
 		fmt.Println("Scanning ports..")
-		tcp.PortScan(*numbPtr, "127.0.0.1")
+		tcp.PortScan(*numbPtr, *addrPtr)
 		fmt.Println("done.")
 	}
+
 }
