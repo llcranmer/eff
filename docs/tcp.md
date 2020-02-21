@@ -44,3 +44,5 @@ client ---requests stackTitan.com ---> FIREWALL ---Requests passes firewall---> 
 
 
 ## TCP Proxy
+
+Request goes to an open port at a trusted website and is then forwarded to the untrusted website
