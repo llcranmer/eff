@@ -8,6 +8,7 @@ import (
 	shodan "github.com/llcranmer/eff/shodan"
 )
 
+// Todo Refactor this to work with the eff cli, including the use of the environment variable!
 func main() {
 	if len(os.Args) != 2 {
 		log.Fatalln("Usage: shodan searchterm")

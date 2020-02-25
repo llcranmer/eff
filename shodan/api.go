@@ -22,7 +22,6 @@ func (s *Client) APIInfo() (*APIInfo, error) {
 
 	// example := https://api.shodan.io/api-info?key={YOUR_API_KEY}
 	// Docs Link := https://developer.shodan.io/api
-	// api.key 1qiVdhrbpbvo0oScJ2y6qArG0fE06Vqm
 
 	resp, err := http.Get(fmt.Sprintf("%s/api-info?key=%s", BaseURL, s.apiKey))
 	if err != nil {
