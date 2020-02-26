@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
 	"github.com/llcranmer/eff/shodan"
 	"github.com/llcranmer/eff/tcp"
 )
@@ -19,13 +18,14 @@ func main() {
 	shodPtr := flag.String("shod", "uinfo", "Interact with shodan.io")
 	qPtr := flag.String("q", "localhost", "Query string to pass to search flag")
 
+
 	var svar string
 	flag.StringVar(&svar, "svar", "bar", "a string var")
 
 	flag.Parse()
 
 	if *tcpPtr == "scan" {
-		fmt.Println("Scanning ports..")
+		fmt.Printf("Scanning ports 0:%d", *numbPtr)
 		tcp.PortScan(*numbPtr, *addrPtr)
 		fmt.Println("done.")
 	}
