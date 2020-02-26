@@ -18,11 +18,8 @@ type APIInfo struct {
 
 // APIInfo returns the information about the account associated with the client passed.
 func (s *Client) APIInfo() (*APIInfo, error) {
+
 	// Use net/http to make a GET request to the Shodan API
-
-	// example := https://api.shodan.io/api-info?key={YOUR_API_KEY}
-	// Docs Link := https://developer.shodan.io/api
-
 	resp, err := http.Get(fmt.Sprintf("%s/api-info?key=%s", BaseURL, s.apiKey))
 	if err != nil {
 		return nil, err
