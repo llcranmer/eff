@@ -21,13 +21,14 @@ func main() {
 	qPtr := flag.String("q", "localhost", "Query string to pass to search flag")
 	metaPtr := flag.String("meta", "sess", "To interact with a 'remote' running instance of metasploit.")
 
+
 	var svar string
 	flag.StringVar(&svar, "svar", "bar", "a string var")
 
 	flag.Parse()
 
 	if *tcpPtr == "scan" {
-		fmt.Println("Scanning ports..")
+		fmt.Printf("Scanning ports 0:%d", *numbPtr)
 		tcp.PortScan(*numbPtr, *addrPtr)
 		fmt.Println("done.")
 	}

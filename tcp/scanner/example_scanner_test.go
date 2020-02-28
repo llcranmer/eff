@@ -3,7 +3,7 @@ package tcp_test
 import (
 	"fmt"
 
-	tcp "github.com/llcranmer/eff/tcp"
+	tcp "github.com/llcranmer/eff/tcp/scanner"
 )
 
 func Example_portscan() {
