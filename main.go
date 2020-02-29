@@ -4,9 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/llcranmer/eff/meta"
+	"github.com/llcranmer/eff/metadata"
 	"github.com/llcranmer/eff/shodan"
 	"github.com/llcranmer/eff/tcp"
 )
@@ -19,7 +22,9 @@ func main() {
 	portsPtr := flag.String("ports", "8080,8000", "selection of ports to scan in csv format")
 	shodPtr := flag.String("shod", "u", "Interact with shodan.io")
 	qPtr := flag.String("q", "localhost", "Query string to pass to search flag")
-	metaPtr := flag.String("meta", "sess", "To interact with a 'remote' running instance of metasploit.")
+	metaPtr := flag.String("meta", "", "To interact with a 'remote' running instance of metasploit.")
+	D8Ptr := flag.String("metaD8a", "", "Search bing for documents of interest")
+	fPtr := flag.String("fType", "docx", "File type to search for")
 
 
 	var svar string
@@ -90,6 +95,24 @@ func main() {
 		for _, session := range sessions {
 			fmt.Printf("%5d %s\n", session.ID, session.Info)
 		}
+
+	}
+
+	// []args{website, filetype, instreamset}
+	if *D8Ptr == "search" {
+
+		q := fmt.Sprintf(
+			"site:%s && filetype:%s && instreamset:(url title):%s",
+			*addrPtr,
+			*fPtr,
+			*fPtr)
+		search := fmt.Sprintf("http://www.bing.com/search?q=%s", url.QueryEscape(q))
+		doc, err := goquery.NewDocument(search)
+		if err != nil {
+			log.Panicln(err)
+		}
+		s := "html body div#b_content ol#b_results li.b_algo div.b_title h2"
+		doc.Find(s).Each(metadata.Handler)
 
 	}
 }
